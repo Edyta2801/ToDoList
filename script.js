@@ -26,13 +26,25 @@ class ToDo {
             const li = document.createElement('li')
             const button = document.createElement('button')
             li.innerText = task.text
-            button.innerText = 'x'
+            button.innerText = 'X'
 
-            li.addEventListener('click', (e) => this.taskClickHandler(task))
+            li.addEventListener('click', (e) => this.toggleComplete(task, li))
             button.addEventListener('click', (e) => this.taskDeleteClickHandler(e, taskIndex))
+
+
+            this.style(task, li)
+
+
+
+
+
+
 
             li.appendChild(button)
             ul.appendChild(li)
+
+
+
         })
 
 
@@ -43,10 +55,10 @@ class ToDo {
 
     }
 
-    // completed? do zmiany
-    taskClickHandler(task) {
-        alert("completed")
-    }
+    // // completed? do zmiany
+    // taskClickHandler(task) {
+    //     alert("completed")
+    // }
 
     taskDeleteClickHandler(e, taskIndex) {
         e.stopPropagation()
@@ -68,9 +80,27 @@ class ToDo {
 
         document.body.appendChild(inputAddTask)
         document.body.appendChild(buttonAddTask)
-    }
-}
 
+
+
+    }
+
+
+
+
+    toggleComplete(task) {
+        task.completed ? (task.completed = false) : (task.completed = true)
+
+
+        this.render()
+
+    }
+
+    style(task, taskBox) { 
+        task.completed ? (taskBox.style.textDecoration = "line-through") : (taskBox.style.textDecoration = "none")
+    }
+
+}
 
 
 
@@ -78,6 +108,8 @@ class ToDo {
 class Task {
     constructor(text) {
         this.text = text
+        this.completed = false
+
     }
 }
 
