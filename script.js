@@ -82,9 +82,27 @@ class ToDo {
         document.body.appendChild(buttonAddTask)
 
 
+        const inputFindTask = document.createElement('input')
+        const buttonFindTask = document.createElement('button')
+
+
+
+        buttonFindTask.innerText = 'Find Task'
+        buttonFindTask.addEventListener(
+            'click',
+            () => this.findTask(inputFindTask, value)
+        )
+        document.body.appendChild(inputFindTask)
+        document.body.appendChild(buttonFindTask)
+
 
     }
-
+    findTask() {
+        const filtrate = this.tasks.filter(task =>
+            task.text.toLowerCase().trim()
+            == this.searchedTask.toLowerCase().trim())
+        this.render()
+    }
 
 
 
@@ -96,7 +114,7 @@ class ToDo {
 
     }
 
-    style(task, taskBox) { 
+    style(task, taskBox) {
         task.completed ? (taskBox.style.textDecoration = "line-through") : (taskBox.style.textDecoration = "none")
     }
 
