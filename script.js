@@ -1,13 +1,13 @@
 class ToDo {
     constructor() {
-        this.tasks = []
+        this.tasks = [] || JSON.parse(localStorage.getItem('toDo'))
 
         this.render()
     }
 
     addTask(text) {
         this.tasks.push(new Task(text))
-
+        this.dateInLocalStorage()
         this.render()
     }
 
@@ -63,6 +63,7 @@ class ToDo {
     taskDeleteClickHandler(e, taskIndex) {
         e.stopPropagation()
         this.tasks = this.tasks.slice(0, taskIndex).concat(this.tasks.slice(taskIndex + 1))
+        this.dateInLocalStorage
         this.render()
     }
 
@@ -87,21 +88,23 @@ class ToDo {
 
 
 
+
+
         buttonFindTask.innerText = 'Find Task'
         buttonFindTask.addEventListener(
             'click',
-            () => this.findTask(inputFindTask, value)
+            () => this.findTask(inputFindTask.value)
         )
         document.body.appendChild(inputFindTask)
         document.body.appendChild(buttonFindTask)
 
 
     }
-    findTask() {
-        const filtrate = this.tasks.filter(task =>
-            task.text.toLowerCase().trim()
-            == this.searchedTask.toLowerCase().trim())
-        this.render()
+
+    findTask(input) {
+        const filtering = this.tasks.filter(task =>
+            task.text.toLowerCase().trim().includes(input.toLowerCase().trim()))
+        this.render(filtering)
     }
 
 
@@ -109,7 +112,7 @@ class ToDo {
     toggleComplete(task) {
         task.completed ? (task.completed = false) : (task.completed = true)
 
-
+        this.dateInLocalStorage()
         this.render()
 
     }
@@ -117,7 +120,9 @@ class ToDo {
     style(task, taskBox) {
         task.completed ? (taskBox.style.textDecoration = "line-through") : (taskBox.style.textDecoration = "none")
     }
-
+    dateInLocalStorage(){
+        localStorage.setItem('toDo',`${JSON.stringify(this.tasks)}`)
+    }
 }
 
 
