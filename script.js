@@ -20,6 +20,7 @@ class ToDo {
 
         this.makeUI()
 
+
         const ul = document.createElement('ul')
 
         this.tasks.forEach((task, taskIndex) => {
@@ -55,10 +56,6 @@ class ToDo {
 
     }
 
-    // // completed? do zmiany
-    // taskClickHandler(task) {
-    //     alert("completed")
-    // }
 
     taskDeleteClickHandler(e, taskIndex) {
         e.stopPropagation()
@@ -70,7 +67,14 @@ class ToDo {
 
 
     makeUI() {
+        const h1 = document.createElement('h1')
+        h1.innerText = 'to do list'
+        document.body.appendChild(h1)
+        // h1.style.textAlign='center'
+
+
         const inputAddTask = document.createElement('input')
+        
         const buttonAddTask = document.createElement('button')
         buttonAddTask.innerText = 'Add task'
 
@@ -79,25 +83,43 @@ class ToDo {
             () => this.addTask(inputAddTask.value)
         )
 
-        document.body.appendChild(inputAddTask)
-        document.body.appendChild(buttonAddTask)
 
+        
 
         const inputFindTask = document.createElement('input')
         const buttonFindTask = document.createElement('button')
-
-
-
-
-
         buttonFindTask.innerText = 'Find Task'
         buttonFindTask.addEventListener(
             'click',
             () => this.findTask(inputFindTask.value)
         )
+
+
+        const boxForButtons = document.createElement('div')
+
+
+        const buttonAllTasks = document.createElement('button')
+        buttonAllTasks.innerText = 'All'
+        const buttonCompletedTasks = document.createElement('button')
+        buttonCompletedTasks.innerText = 'Done'
+        const buttonTasksToDo = document.createElement('button')
+        buttonTasksToDo.innerText = 'To Do'
+
+        buttonAllTasks.style.marginBottom = '10px'
+        buttonCompletedTasks.style.marginBottom = '10px'
+        buttonTasksToDo.style.marginBottom = '10px'
+
+
+
+
+        boxForButtons.appendChild(buttonAllTasks)
+        boxForButtons.appendChild(buttonCompletedTasks)
+        boxForButtons.appendChild(buttonTasksToDo)
+        document.body.appendChild(boxForButtons)
+        document.body.appendChild(inputAddTask)
+        document.body.appendChild(buttonAddTask)
         document.body.appendChild(inputFindTask)
         document.body.appendChild(buttonFindTask)
-
 
     }
 
@@ -120,8 +142,8 @@ class ToDo {
     style(task, taskBox) {
         task.completed ? (taskBox.style.textDecoration = "line-through") : (taskBox.style.textDecoration = "none")
     }
-    dateInLocalStorage(){
-        localStorage.setItem('toDo',`${JSON.stringify(this.tasks)}`)
+    dateInLocalStorage() {
+        localStorage.setItem('toDo', `${JSON.stringify(this.tasks)}`)
     }
 }
 
