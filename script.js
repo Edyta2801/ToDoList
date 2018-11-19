@@ -17,7 +17,7 @@ class ToDo {
 
     render(arrayToFind) {
         document.body.innerHTML = ''
-        const array=arrayToFind || this.tasks
+        const array = arrayToFind || this.tasks
         this.makeUI()
 
 
@@ -70,11 +70,11 @@ class ToDo {
         const h1 = document.createElement('h1')
         h1.innerText = 'to do list'
         document.body.appendChild(h1)
-        // h1.style.textAlign='center'
+    
 
 
         const inputAddTask = document.createElement('input')
-        
+
         const buttonAddTask = document.createElement('button')
         buttonAddTask.innerText = 'Add task'
 
@@ -84,7 +84,7 @@ class ToDo {
         )
 
 
-        
+
 
         const inputFindTask = document.createElement('input')
         const buttonFindTask = document.createElement('button')
@@ -100,20 +100,23 @@ class ToDo {
 
         const buttonAllTasks = document.createElement('button')
         buttonAllTasks.innerText = 'All'
-        const buttonCompletedTasks = document.createElement('button')
-        buttonCompletedTasks.innerText = 'Done'
+        buttonAllTasks.style.marginBottom = '10px'
+        buttonAllTasks.addEventListener('click', () => this.render())
+
+
+        const buttonDoneTasks = document.createElement('button')
+        buttonDoneTasks.innerText = 'Done'
+        buttonDoneTasks.style.marginBottom = '10px'
+        buttonDoneTasks.addEventListener('click', ()=>this.findDoneTask())
+
         const buttonTasksToDo = document.createElement('button')
         buttonTasksToDo.innerText = 'To Do'
-
-        buttonAllTasks.style.marginBottom = '10px'
-        buttonCompletedTasks.style.marginBottom = '10px'
         buttonTasksToDo.style.marginBottom = '10px'
-
-
+        buttonTasksToDo.addEventListener('click',()=>this.findToDoTask() )
 
 
         boxForButtons.appendChild(buttonAllTasks)
-        boxForButtons.appendChild(buttonCompletedTasks)
+        boxForButtons.appendChild(buttonDoneTasks)
         boxForButtons.appendChild(buttonTasksToDo)
         document.body.appendChild(boxForButtons)
         document.body.appendChild(inputAddTask)
@@ -128,7 +131,15 @@ class ToDo {
             task.text.toLowerCase().trim().includes(input.toLowerCase().trim()))
         this.render(filtering)
     }
+    findDoneTask(){
+        const doneTask=this.tasks.filter(task=>task.completed===true)
+        this.render(doneTask)
+    }
 
+    findToDoTask(){
+        const toDoTask=this.tasks.filter(task=>task.completed===false)
+        this.render(toDoTask)
+    }
 
 
     toggleComplete(task) {
