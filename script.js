@@ -1,7 +1,6 @@
 class ToDo {
     constructor() {
         this.tasks = [] || JSON.parse(localStorage.getItem('toDo'))
-
         this.render()
     }
 
@@ -10,10 +9,6 @@ class ToDo {
         this.dateInLocalStorage()
         this.render()
     }
-
-
-
-
 
     render(arrayToFind) {
         document.body.innerHTML = ''
@@ -36,26 +31,14 @@ class ToDo {
             this.style(task, li)
 
 
-
-
-
-
-
             li.appendChild(button)
             ul.appendChild(li)
 
-
-
         })
-
-
 
         document.body.appendChild(ul)
 
-
-
     }
-
 
     taskDeleteClickHandler(e, taskIndex) {
         e.stopPropagation()
@@ -64,17 +47,12 @@ class ToDo {
         this.render()
     }
 
-
-
     makeUI() {
         const h1 = document.createElement('h1')
         h1.innerText = 'to do list'
         document.body.appendChild(h1)
     
-
-
         const inputAddTask = document.createElement('input')
-
         const buttonAddTask = document.createElement('button')
         buttonAddTask.innerText = 'Add task'
 
@@ -82,8 +60,6 @@ class ToDo {
             'click',
             () => this.addTask(inputAddTask.value)
         )
-
-
 
 
         const inputFindTask = document.createElement('input')
@@ -169,5 +145,5 @@ class Task {
     }
 }
 
-// const toDo1 = new ToDo()
+
 
